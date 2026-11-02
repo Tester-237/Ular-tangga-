@@ -10,99 +10,113 @@
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#080d19;color:#eaf2ff;
+ margin:0;background:#080e1b;color:#edf6ff;
  font-family:Arial,sans-serif;min-height:100vh;
 }
 button,input,select{font:inherit}
 button{
- border:0;border-radius:10px;padding:12px 18px;
- background:#13c8e8;color:#06121d;font-weight:bold;
- cursor:pointer;
+ border:0;border-radius:11px;padding:12px 17px;
+ background:#20d5ef;color:#071522;
+ font-weight:bold;cursor:pointer;
+ transition:.2s;
 }
-button:disabled{opacity:.35;cursor:not-allowed}
+button:hover{filter:brightness(1.12)}
+button:disabled{opacity:.4;cursor:not-allowed}
 input,select{
- background:#111c30;color:white;border:1px solid #334762;
- padding:12px;border-radius:9px;width:100%;
+ width:100%;padding:12px;border-radius:9px;
+ border:1px solid #344966;background:#101d32;color:white;
 }
 header{
- padding:18px;text-align:center;
+ text-align:center;padding:20px;
  background:#101a2d;border-bottom:1px solid #263b58;
 }
-h1{margin:0;color:#32d9f4;font-size:25px}
-.subtitle{color:#8da9c8;font-size:12px;margin-top:7px}
+h1{margin:0;color:#37def7;font-size:26px}
+.subtitle{font-size:11px;color:#91a8c5;margin-top:7px;letter-spacing:2px}
 .container{max-width:1100px;margin:auto;padding:15px}
 .panel{
- background:#111c30;border:1px solid #293e5b;
- border-radius:15px;padding:17px;margin-bottom:15px;
+ background:#111d31;border:1px solid #2a405e;
+ border-radius:15px;padding:16px;margin-bottom:15px;
 }
 .hidden{display:none!important}
 h2{font-size:17px;margin-top:0}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.menu button{width:100%}
 .small{font-size:12px;color:#91a8c5}
-#status{color:#39d9b8;font-size:13px;margin-top:10px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.menu button{width:100%}
+#status{font-size:13px;color:#43e3be;margin-top:12px}
 #roomCode{
- font-size:25px;color:#38e2ff;font-weight:bold;
- letter-spacing:3px;text-align:center;padding:10px;
+ text-align:center;font-size:26px;font-weight:bold;
+ color:#35e6ff;letter-spacing:3px;padding:12px;
 }
-.players{display:flex;gap:8px;flex-wrap:wrap}
+.players{display:flex;flex-wrap:wrap;gap:7px}
 .player{
- background:#192a43;padding:9px 12px;border-radius:10px;
- font-size:13px;border:1px solid #304765;
+ background:#1a2b43;border:1px solid #354a67;
+ border-radius:9px;padding:9px 11px;font-size:12px;
 }
-.player.active{border-color:#35e6ff;background:#15384a}
+.player.active{border-color:#38e5ff;background:#15384b}
 .game-layout{
- display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:15px;
+ display:grid;grid-template-columns:minmax(0,1fr) 260px;
+ gap:15px;
 }
-.board-wrap{
- width:100%;max-width:650px;margin:auto;
- position:relative;
-}
+.board-wrap{width:100%;max-width:650px;margin:auto;position:relative}
 #board{
- display:grid;grid-template-columns:repeat(10,1fr);
- aspect-ratio:1;background:#172940;
- border:3px solid #39cce9;border-radius:8px;
- overflow:hidden;position:relative;
+ width:100%;aspect-ratio:1;display:grid;
+ grid-template-columns:repeat(10,1fr);
+ grid-template-rows:repeat(10,1fr);
+ background:#172940;border:3px solid #35d8f2;
+ border-radius:8px;overflow:hidden;
 }
 .cell{
- position:relative;border:1px solid #344a60;
- display:flex;flex-direction:column;align-items:center;
- justify-content:space-between;padding:2px;
- min-width:0;z-index:1;
- background:#172940;
+ min-width:0;min-height:0;position:relative;
+ border:1px solid #354960;
+ display:flex;flex-direction:column;
+ justify-content:space-between;align-items:center;
+ padding:2px;background:#172940;
 }
-.cell:nth-child(odd){background:#1c3048}
-.cell.special{background:#263b50}
-.num{font-size:clamp(7px,1.4vw,12px);color:#a9c5e3}
+.cell:nth-child(even){background:#20334c}
+.cell.special{background:#29425b}
+.num{font-size:clamp(7px,1.4vw,12px);color:#b8cee5}
 .tokens{
- display:flex;flex-wrap:wrap;justify-content:center;
- gap:1px;align-items:center;
+ display:flex;flex-wrap:wrap;
+ justify-content:center;align-items:center;
+ gap:2px;width:100%;min-height:15px;
+ position:relative;z-index:5;
 }
 .token{
- width:clamp(11px,2.5vw,19px);
- height:clamp(11px,2.5vw,19px);
- border-radius:50%;border:2px solid white;
+ width:clamp(10px,2.5vw,19px);
+ height:clamp(10px,2.5vw,19px);
+ flex:0 0 auto;border-radius:50%;
+ border:2px solid white;
  box-shadow:0 0 7px currentColor;
+ display:flex;align-items:center;
+ justify-content:center;
+ font-size:clamp(6px,1vw,9px);
+ font-weight:bold;color:#071522;
 }
 #paths{
  position:absolute;inset:0;width:100%;height:100%;
- pointer-events:none;z-index:2;
+ pointer-events:none;z-index:3;
 }
+.cell{z-index:1}
+.token{position:relative;z-index:6}
 .side{display:flex;flex-direction:column;gap:12px}
 .dice{
- font-size:65px;text-align:center;
- padding:15px;
- color:#4ce7ff;
- text-shadow:0 0 20px #08c8ff;
+ font-size:65px;text-align:center;padding:12px;
+ color:#4ce7ff;text-shadow:0 0 20px #08c8ff;
 }
-.turn{text-align:center;color:#41d9ee;font-weight:bold}
+.turn{text-align:center;color:#45e2f5;font-weight:bold}
+#rollBtn{width:100%;font-size:15px}
 #log{
- height:145px;overflow:auto;font-size:12px;
- line-height:1.7;color:#9cb4d1;
+ height:150px;overflow:auto;font-size:12px;
+ line-height:1.8;color:#a3bad3;
 }
-#rollBtn{width:100%;font-size:16px}
-#message{text-align:center;color:#40e8c1;min-height:25px}
-footer{text-align:center;color:#637c9b;padding:20px;font-size:11px}
+#message{
+ text-align:center;color:#43edc0;
+ min-height:25px;font-weight:bold;
+}
+.settings{display:flex;flex-wrap:wrap;gap:8px}
+.settings button{flex:1}
+footer{text-align:center;color:#687f9b;padding:20px;font-size:11px}
+
 @media(max-width:700px){
  .game-layout{grid-template-columns:1fr}
  .side{display:grid;grid-template-columns:1fr 1fr}
@@ -110,10 +124,15 @@ footer{text-align:center;color:#637c9b;padding:20px;font-size:11px}
  #log{height:100px}
  .dice{font-size:45px;padding:5px}
 }
+@media(max-width:380px){
+ .side{grid-template-columns:1fr}
+ .container{padding:9px}
+}
 </style>
 </head>
 
 <body>
+
 <header>
  <h1>🐍 SNAKE & LADDER</h1>
  <div class="subtitle">ONLINE MULTIPLAYER • PEER TO PEER</div>
@@ -121,15 +140,18 @@ footer{text-align:center;color:#637c9b;padding:20px;font-size:11px}
 
 <div class="container">
 
+<!-- MENU -->
 <section id="menu" class="panel">
  <h2>🎮 Multiplayer Lobby</h2>
+
  <label>Nama pemain</label>
  <input id="name" maxlength="16" placeholder="Masukkan nama...">
+
  <br><br>
 
  <div class="menu">
   <div>
-   <label>Jumlah pemain room</label>
+   <label>Jumlah pemain maksimal</label>
    <select id="capacity">
     <option value="2">2 Pemain</option>
     <option value="3">3 Pemain</option>
@@ -138,54 +160,81 @@ footer{text-align:center;color:#637c9b;padding:20px;font-size:11px}
     <option value="6" selected>6 Pemain</option>
    </select>
   </div>
+
   <div style="display:flex;align-items:end">
-   <button onclick="createRoom()" style="width:100%">Buat Room</button>
+   <button onclick="createRoom()" style="width:100%">
+    BUAT ROOM
+   </button>
   </div>
  </div>
 
  <hr style="border-color:#293e5b;margin:20px 0">
 
- <label>Masukkan Room ID</label>
- <input id="joinCode" placeholder="Contoh: SNAKE-ABC123">
+ <label>Room ID</label>
+ <input id="joinCode" placeholder="Masukkan Room ID">
+
  <br><br>
- <button onclick="joinRoom()">Gabung Room</button>
+ <button onclick="joinRoom()">GABUNG ROOM</button>
+
  <div id="status">Siap bermain.</div>
 </section>
 
+<!-- LOBBY -->
 <section id="lobby" class="panel hidden">
  <h2>🏠 Ruang Tunggu</h2>
  <div class="small">ROOM ID</div>
  <div id="roomCode"></div>
- <button onclick="copyRoom()">Salin Room ID</button>
- <p class="small" id="capacityInfo"></p>
+
+ <button onclick="copyRoom()">SALIN ROOM ID</button>
+
+ <p id="capacityInfo" class="small"></p>
+
  <h2>Daftar pemain</h2>
  <div id="lobbyPlayers" class="players"></div>
+
  <br>
- <button id="startBtn" onclick="startGame()">MULAI PERMAINAN</button>
- <p class="small">Hanya host yang dapat memulai permainan.</p>
- <button onclick="leaveRoom()" style="background:#9a3548;color:white">Keluar Room</button>
+
+ <button id="startBtn" onclick="startGame()">
+  MULAI PERMAINAN
+ </button>
+
+ <p class="small" id="lobbyHint">
+  Menunggu pemain...
+ </p>
+
+ <button onclick="leaveRoom()"
+ style="background:#a6384d;color:white">
+ KELUAR ROOM
+ </button>
 </section>
 
+<!-- GAME -->
 <section id="game" class="hidden">
+
  <div class="panel">
+  <h2>👥 Pemain</h2>
   <div class="players" id="gamePlayers"></div>
   <p id="message"></p>
  </div>
 
  <div class="game-layout">
+
   <div class="board-wrap">
    <div id="board"></div>
    <svg id="paths" viewBox="0 0 1000 1000"
-        preserveAspectRatio="none"></svg>
+   preserveAspectRatio="none"></svg>
   </div>
 
   <div class="side">
+
    <div class="panel">
     <h2>🎲 Dadu</h2>
     <div class="dice" id="dice">⚄</div>
     <div class="turn" id="turnText">Menunggu...</div>
     <br>
-    <button id="rollBtn" onclick="requestRoll()">LEMPAR DADU</button>
+    <button id="rollBtn" onclick="requestRoll()">
+     LEMPAR DADU
+    </button>
    </div>
 
    <div class="panel">
@@ -195,25 +244,41 @@ footer{text-align:center;color:#637c9b;padding:20px;font-size:11px}
 
    <div class="panel">
     <h2>⚙️ Pengaturan</h2>
-    <button id="soundBtn" onclick="toggleSound()">🔊 Suara ON</button>
-    <br><br>
-    <button id="musicBtn" onclick="toggleMusic()">🎵 Musik ON</button>
+    <div class="settings">
+     <button id="soundBtn" onclick="toggleSound()">🔊 Suara ON</button>
+     <button id="musicBtn" onclick="toggleMusic()">🎵 Musik OFF</button>
+    </div>
    </div>
+
+   <div class="panel">
+    <h2>🏁 Informasi</h2>
+    <div class="small">
+     Pemain harus mendapatkan angka yang tepat untuk mencapai kotak 100.
+     <br><br>
+     Host mengendalikan permainan.
+    </div>
+    <br>
+    <button onclick="leaveRoom()" style="background:#a6384d;color:white;width:100%">
+     KELUAR PERMAINAN
+    </button>
+   </div>
+
   </div>
  </div>
 </section>
+
 </div>
 
-<footer>Snake & Ladder Online • Powered by PeerJS</footer>
+<footer>Snake & Ladder Online • PeerJS Multiplayer</footer>
 
 <script>
-// ====================================
-// KONFIGURASI
-// ====================================
+// ==========================================
+// 1. CONFIG
+// ==========================================
 
 const snakes={
- 17:7,54:34,62:19,64:60,87:24,
- 93:73,95:75,98:79
+ 17:7,54:34,62:19,64:60,
+ 87:24,93:73,95:75,98:79
 };
 
 const ladders={
@@ -228,69 +293,103 @@ const colors=[
 
 const diceFaces=["⚀","⚁","⚂","⚃","⚄","⚅"];
 
-// ====================================
-// STATE
-// ====================================
+// ==========================================
+// 2. STATE
+// ==========================================
 
 let peer=null;
 let host=false;
 let roomId="";
+let hostId="";
 let connections={};
 let players=[];
 let capacity=6;
 let started=false;
 let busy=false;
+let currentTurn=0;
+let gameOver=false;
+let winner="";
 let soundOn=true;
 let musicOn=false;
 let audio=null;
 let musicTimer=null;
-let currentTurn=0;
+let lastDice=5;
+let moveSequence=0;
 
 const $=id=>document.getElementById(id);
 
-function setStatus(t){$("status").textContent=t;}
-
-function show(id){
- ["menu","lobby","game"].forEach(x=>$(x).classList.add("hidden"));
- $(id).classList.remove("hidden");
+function setStatus(t){
+ $("status").textContent=t;
 }
 
-function log(t){
- const el=$("log");
- el.innerHTML+=`<div>› ${escapeHTML(t)}</div>`;
- el.scrollTop=el.scrollHeight;
+function show(id){
+ ["menu","lobby","game"].forEach(x=>{
+  $(x).classList.add("hidden");
+ });
+ $(id).classList.remove("hidden");
 }
 
 function escapeHTML(s){
  return String(s).replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
  }[c]));
 }
 
-// ====================================
-// PEERJS
-// ====================================
+function log(t){
+ const el=$("log");
+ el.innerHTML+="<div>› "+escapeHTML(t)+"</div>";
+ el.scrollTop=el.scrollHeight;
+}
+
+// ==========================================
+// 3. PEER CONNECTION
+// ==========================================
 
 function createRoom(){
  const name=$("name").value.trim();
- if(!name)return alert("Masukkan nama terlebih dahulu!");
+
+ if(!name){
+  alert("Masukkan nama terlebih dahulu!");
+  return;
+ }
+
+ if(typeof Peer==="undefined"){
+  alert("PeerJS gagal dimuat. Periksa koneksi internet.");
+  return;
+ }
 
  host=true;
  capacity=Number($("capacity").value);
- roomId="SNAKE-"+Math.random().toString(36).substring(2,8).toUpperCase();
+
+ roomId="snake-"+Math.random()
+  .toString(36).substring(2,9);
 
  setStatus("Membuat room...");
 
  peer=new Peer(roomId);
 
- peer.on("open",()=>{
+ peer.on("open",id=>{
+  hostId=id;
+
   players=[{
-   id:peer.id,name:name,color:colors[0],pos:0
+   id:id,
+   name:name,
+   color:colors[0],
+   pos:1
   }];
-  started=false;
+
   connections={};
+  started=false;
+  gameOver=false;
+  winner="";
+
   show("lobby");
   updateLobby();
+
   setStatus("Room berhasil dibuat!");
  });
 
@@ -298,35 +397,26 @@ function createRoom(){
   connections[conn.peer]=conn;
 
   conn.on("data",data=>{
+   if(!data || typeof data!=="object")return;
+
    if(data.type==="join"){
-    if(started || players.length>=capacity){
-     conn.send({type:"error",message:"Room penuh atau permainan sudah dimulai."});
-     conn.close();
-     return;
-    }
-
-    if(players.some(p=>p.id===conn.peer))return;
-
-    players.push({
-     id:conn.peer,
-     name:String(data.name||"Pemain").slice(0,16),
-     color:colors[players.length],
-     pos:0
-    });
-
-    conn.send({type:"joined",id:conn.peer});
-    updateLobby();
-    broadcastState();
+    handleJoin(conn,data);
    }
 
    if(data.type==="roll"){
-    if(data.id===conn.peer)rollGame(conn.peer);
+    if(data.id===conn.peer){
+     rollGame(conn.peer);
+    }
    }
   });
 
   conn.on("close",()=>{
    delete connections[conn.peer];
    removePlayer(conn.peer);
+  });
+
+  conn.on("error",()=>{
+   delete connections[conn.peer];
   });
  });
 
@@ -335,43 +425,108 @@ function createRoom(){
  });
 }
 
+function handleJoin(conn,data){
+ if(started || gameOver){
+  conn.send({
+   type:"error",
+   message:"Permainan sudah dimulai."
+  });
+  conn.close();
+  return;
+ }
+
+ if(players.length>=capacity){
+  conn.send({
+   type:"error",
+   message:"Room sudah penuh."
+  });
+  conn.close();
+  return;
+ }
+
+ if(players.some(p=>p.id===conn.peer))return;
+
+ const name=String(data.name||"Pemain")
+  .slice(0,16);
+
+ players.push({
+  id:conn.peer,
+  name:name,
+  color:colors[players.length],
+  pos:1
+ });
+
+ conn.send({
+  type:"joined",
+  id:conn.peer
+ });
+
+ updateLobby();
+ broadcastState();
+}
+
 function joinRoom(){
  const name=$("name").value.trim();
- const code=$("joinCode").value.trim().toUpperCase();
+ const code=$("joinCode").value.trim().toLowerCase();
 
- if(!name||!code)return alert("Isi nama dan Room ID!");
+ if(!name || !code){
+  alert("Isi nama dan Room ID!");
+  return;
+ }
+
+ if(typeof Peer==="undefined"){
+  alert("PeerJS belum dimuat.");
+  return;
+ }
 
  host=false;
  roomId=code;
+
  setStatus("Menghubungkan ke host...");
 
  peer=new Peer();
 
  peer.on("open",()=>{
-  const conn=peer.connect(roomId,{reliable:true});
+  const conn=peer.connect(roomId,{
+   reliable:true
+  });
+
   connections.host=conn;
 
   conn.on("open",()=>{
-   conn.send({type:"join",name:name});
-   setStatus("Mengirim permintaan bergabung...");
+   conn.send({
+    type:"join",
+    name:name
+   });
+
+   setStatus("Meminta masuk room...");
   });
 
   conn.on("data",data=>{
    if(data.type==="error"){
     alert(data.message);
     leaveRoom();
+    return;
    }
+
    if(data.type==="joined"){
     setStatus("Berhasil masuk room!");
    }
+
    if(data.type==="state"){
     receiveState(data.state);
    }
   });
 
   conn.on("close",()=>{
-   alert("Koneksi dengan host terputus.");
-   leaveRoom();
+   if(peer){
+    alert("Koneksi dengan host terputus.");
+    leaveRoom();
+   }
+  });
+
+  conn.on("error",()=>{
+   setStatus("Koneksi pemain gagal.");
   });
  });
 
@@ -380,103 +535,191 @@ function joinRoom(){
  });
 }
 
-// ====================================
-// ROOM MANAGEMENT
-// ====================================
+// ==========================================
+// 4. SYNCHRONIZATION
+// ==========================================
+
+function getState(){
+ return {
+  players:players,
+  capacity:capacity,
+  started:started,
+  currentTurn:currentTurn,
+  busy:busy,
+  gameOver:gameOver,
+  winner:winner,
+  lastDice:lastDice,
+  hostId:hostId
+ };
+}
 
 function broadcast(data){
- Object.values(connections).forEach(c=>{
-  if(c&&c.open)c.send(data);
+ Object.values(connections).forEach(conn=>{
+  if(conn && conn.open){
+   conn.send(data);
+  }
  });
 }
 
 function broadcastState(){
- broadcast({type:"state",state:getState()});
- render();
-}
+ const state=getState();
 
-function getState(){
- return {
-  players,capacity,started,currentTurn,busy
- };
+ // Host juga memperbarui papan miliknya.
+ render();
+
+ // Kirim kondisi permainan ke semua pemain.
+ broadcast({
+  type:"state",
+  state:state
+ });
 }
 
 function receiveState(s){
- players=s.players;
+ if(!s)return;
+
+ players=s.players||[];
  capacity=s.capacity;
  started=s.started;
  currentTurn=s.currentTurn;
  busy=s.busy;
+ gameOver=s.gameOver;
+ winner=s.winner;
+ lastDice=s.lastDice;
+ hostId=s.hostId;
 
- if(started)show("game");
- else show("lobby");
+ $("dice").textContent=diceFaces[lastDice-1]||"⚄";
+
+ if(started || gameOver){
+  show("game");
+ }else{
+  show("lobby");
+  updateLobby();
+ }
 
  render();
+
+ if(gameOver){
+  $("message").textContent="🏆 "+winner+" MENANG!";
+ }
 }
+
+// ==========================================
+// 5. ROOM MANAGEMENT
+// ==========================================
 
 function updateLobby(){
  $("roomCode").textContent=roomId;
+
  $("capacityInfo").textContent=
-  `Pemain: ${players.length}/${capacity}`;
+  "Pemain: "+players.length+"/"+capacity;
 
- $("lobbyPlayers").innerHTML=players.map(p=>
-  `<div class="player">
-   <span style="color:${p.color}">●</span>
-   ${escapeHTML(p.name)}
-   ${p.id===peer.id?" (Host)":""}
-  </div>`
- ).join("");
+ $("lobbyPlayers").innerHTML=players.map(p=>{
+  return `
+   <div class="player">
+    <span style="color:${p.color}">●</span>
+    ${escapeHTML(p.name)}
+    ${p.id===hostId?" (HOST)":""}
+   </div>
+  `;
+ }).join("");
 
- $("startBtn").disabled=players.length<2;
+ $("startBtn").disabled=
+  !host || players.length<2 || started;
+
+ $("lobbyHint").textContent=
+  players.length<capacity
+   ?"Menunggu pemain bergabung..."
+   :"Room penuh. Siap bermain!";
 }
 
 function removePlayer(id){
  if(!host)return;
+
+ const oldLength=players.length;
+
  players=players.filter(p=>p.id!==id);
 
- if(currentTurn>=players.length)currentTurn=0;
+ if(players.length===oldLength)return;
+
+ if(currentTurn>=players.length){
+  currentTurn=0;
+ }
+
+ if(players.length<2 && started){
+  started=false;
+  busy=false;
+ }
 
  updateLobby();
  broadcastState();
 }
 
 function leaveRoom(){
- if(peer)peer.destroy();
+ stopMusic();
+
+ if(peer){
+  peer.destroy();
+ }
+
  peer=null;
  connections={};
  players=[];
  started=false;
- host=false;
  busy=false;
- stopMusic();
+ gameOver=false;
+ winner="";
+ host=false;
+ hostId="";
+ currentTurn=0;
+
+ $("log").innerHTML="";
+ $("message").textContent="";
+
  show("menu");
  setStatus("Keluar dari room.");
 }
 
-// ====================================
-// BOARD
-// ====================================
+// ==========================================
+// 6. BOARD
+// ==========================================
 
 function cellPosition(n){
  const rowFromBottom=Math.floor((n-1)/10);
  const offset=(n-1)%10;
- const col=rowFromBottom%2===0?offset:9-offset;
+
+ const col=rowFromBottom%2===0
+  ?offset
+  :9-offset;
+
  const row=9-rowFromBottom;
 
  return {row,col};
 }
 
 function buildBoard(){
- $("board").innerHTML="";
+ const board=$("board");
+ board.innerHTML="";
+
  for(let n=100;n>=1;n--){
-  const pos=cellPosition(n);
+  const p=cellPosition(n);
+
   const cell=document.createElement("div");
   cell.className="cell";
   cell.id="cell"+n;
-  cell.style.gridRow=pos.row+1;
-  cell.style.gridColumn=pos.col+1;
-  cell.innerHTML=`<span class="num">${n}</span><div class="tokens" id="tokens${n}"></div>`;
-  $("board").appendChild(cell);
+
+  if(snakes[n]||ladders[n]){
+   cell.classList.add("special");
+  }
+
+  cell.style.gridRow=p.row+1;
+  cell.style.gridColumn=p.col+1;
+
+  cell.innerHTML=`
+   <span class="num">${n}</span>
+   <div class="tokens" id="tokens${n}"></div>
+  `;
+
+  board.appendChild(cell);
  }
 
  drawPaths();
@@ -487,104 +730,178 @@ function drawPaths(){
 
  function point(n){
   const p=cellPosition(n);
-  return {x:(p.col+.5)*100,y:(p.row+.5)*100};
+
+  return {
+   x:(p.col+.5)*100,
+   y:(p.row+.5)*100
+  };
  }
 
+ // Tangga
  Object.entries(ladders).forEach(([a,b])=>{
-  const p=point(+a),q=point(b);
-  const dx=q.x-p.x,dy=q.y-p.y;
-  const len=Math.hypot(dx,dy);
-  const ox=-dy/len*7,oy=dx/len*7;
+  const p=point(Number(a));
+  const q=point(Number(b));
 
-  svg+=`<g stroke="#51ee9b" stroke-width="5" fill="none" opacity=".9">
-   <line x1="${p.x+ox}" y1="${p.y+oy}" x2="${q.x+ox}" y2="${q.y+oy}"/>
-   <line x1="${p.x-ox}" y1="${p.y-oy}" x2="${q.x-ox}" y2="${q.y-oy}"/>`;
+  const dx=q.x-p.x;
+  const dy=q.y-p.y;
+  const len=Math.hypot(dx,dy);
+
+  const ox=-dy/len*7;
+  const oy=dx/len*7;
+
+  svg+=`
+   <g stroke="#51ee9b"
+      stroke-width="5"
+      fill="none"
+      opacity=".85">
+    <line x1="${p.x+ox}" y1="${p.y+oy}"
+     x2="${q.x+ox}" y2="${q.y+oy}"/>
+    <line x1="${p.x-ox}" y1="${p.y-oy}"
+     x2="${q.x-ox}" y2="${q.y-oy}"/>
+  `;
 
   for(let t=.15;t<.95;t+=.2){
-   const x=p.x+dx*t,y=p.y+dy*t;
-   svg+=`<line x1="${x+ox}" y1="${y+oy}" x2="${x-ox}" y2="${y-oy}"/>`;
+   const x=p.x+dx*t;
+   const y=p.y+dy*t;
+
+   svg+=`
+    <line x1="${x+ox}" y1="${y+oy}"
+     x2="${x-ox}" y2="${y-oy}"/>
+   `;
   }
+
   svg+="</g>";
  });
 
+ // Ular
  Object.entries(snakes).forEach(([a,b])=>{
-  const p=point(+a),q=point(b);
+  const p=point(Number(a));
+  const q=point(Number(b));
+
   const cx=(p.x+q.x)/2+65;
   const cy=(p.y+q.y)/2-25;
-  svg+=`<path d="M ${p.x} ${p.y} Q ${cx} ${cy} ${q.x} ${q.y}"
-   stroke="#ff596d" stroke-width="13" fill="none"
-   stroke-linecap="round" opacity=".8"/>`;
-  svg+=`<circle cx="${p.x}" cy="${p.y}" r="12" fill="#ff596d"/>`;
+
+  svg+=`
+   <path d="M ${p.x} ${p.y}
+    Q ${cx} ${cy} ${q.x} ${q.y}"
+    stroke="#ff596d"
+    stroke-width="13"
+    fill="none"
+    stroke-linecap="round"
+    opacity=".85"/>
+
+   <circle cx="${p.x}" cy="${p.y}"
+    r="12" fill="#ff596d"/>
+  `;
  });
 
  $("paths").innerHTML=svg;
 }
 
+// ==========================================
+// 7. RENDER PLAYERS
+// ==========================================
+
 function render(){
  if(!players.length)return;
 
- $("gamePlayers").innerHTML=players.map((p,i)=>
-  `<div class="player ${i===currentTurn?"active":""}">
+ // Daftar pemain
+ $("gamePlayers").innerHTML=players.map((p,i)=>`
+  <div class="player ${i===currentTurn?"active":""}">
    <span style="color:${p.color}">●</span>
    ${escapeHTML(p.name)}: ${p.pos}
-  </div>`
- ).join("");
+   ${p.id===hostId?" ★":""}
+  </div>
+ `).join("");
 
+ // Kosongkan seluruh kotak
  for(let n=1;n<=100;n++){
-  $("tokens"+n).innerHTML="";
+  const box=$("tokens"+n);
+  if(box)box.innerHTML="";
  }
 
- players.forEach(p=>{
-  if(p.pos>0){
-   const token=document.createElement("div");
-   token.className="token";
-   token.style.background=p.color;
-   token.title=p.name;
-   $("tokens"+p.pos).appendChild(token);
-  }
+ // Tampilkan SEMUA pion
+ players.forEach((p,i)=>{
+  const position=Math.max(1,Math.min(100,p.pos||1));
+
+  const box=$("tokens"+position);
+  if(!box)return;
+
+  const token=document.createElement("div");
+
+  token.className="token";
+  token.style.background=p.color;
+  token.style.color="#071522";
+  token.textContent=i+1;
+  token.title=p.name;
+
+  box.appendChild(token);
  });
 
+ // Status giliran
  const current=players[currentTurn];
- $("turnText").textContent=current?
-  "Giliran: "+current.name:"Menunggu...";
 
+ $("turnText").textContent=current
+  ?"Giliran: "+current.name
+  :"Menunggu pemain...";
+
+ // Dadu hanya bisa dilempar oleh pemain yang mendapat giliran.
  $("rollBtn").disabled=
-  busy||!started||!current||
-  (host?current.id!==peer.id:true);
-
- $("message").textContent=
-  started?"Permainan sedang berlangsung":"";
+  busy ||
+  !started ||
+  gameOver ||
+  !current ||
+  current.id!==peer?.id;
 }
 
-// ====================================
-// START GAME
-// ====================================
+// ==========================================
+// 8. START GAME
+// ==========================================
 
 function startGame(){
- if(!host||players.length<2||started)return;
+ if(!host)return;
+ if(players.length<2)return;
+ if(started)return;
 
  started=true;
- currentTurn=0;
+ gameOver=false;
+ winner="";
  busy=false;
+ currentTurn=0;
+ lastDice=5;
 
- players.forEach(p=>p.pos=0);
+ players.forEach(p=>{
+  p.pos=1;
+ });
+
+ $("message").textContent="";
+ $("log").innerHTML="";
 
  show("game");
- log("Permainan dimulai!");
+
+ log("🎮 Permainan dimulai!");
+ log("Semua pemain berada di START.");
+
  broadcastState();
 }
 
-// ====================================
-// DICE & MOVEMENT
-// ====================================
+// ==========================================
+// 9. DICE AND MOVEMENT
+// ==========================================
 
 function requestRoll(){
+ if(!started || busy || gameOver)return;
+
  if(host){
   rollGame(peer.id);
  }else{
   const conn=connections.host;
-  if(conn&&conn.open){
-   conn.send({type:"roll",id:peer.id});
+
+  if(conn && conn.open){
+   conn.send({
+    type:"roll",
+    id:peer.id
+   });
   }
  }
 }
@@ -594,154 +911,227 @@ function delay(ms){
 }
 
 async function rollGame(id){
- if(!host||!started||busy)return;
+ if(!host || !started || busy || gameOver)return;
 
  const player=players[currentTurn];
- if(!player||player.id!==id)return;
+
+ if(!player || player.id!==id)return;
 
  busy=true;
+ broadcastState();
+
+ // Hasil dadu dibuat host.
  const dice=Math.floor(Math.random()*6)+1;
+ lastDice=dice;
 
  for(let i=0;i<8;i++){
-  $("dice").textContent=diceFaces[Math.floor(Math.random()*6)];
+  $("dice").textContent=
+   diceFaces[Math.floor(Math.random()*6)];
+
   await delay(65);
  }
 
  $("dice").textContent=diceFaces[dice-1];
 
- log(player.name+" mendapatkan "+dice);
+ log(player.name+" mendapatkan angka "+dice+".");
+
+ broadcastState();
 
  const target=player.pos+dice;
 
  if(target<=100){
+
+  // Animasi gerakan pion
   while(player.pos<target){
    player.pos++;
+
    broadcastState();
-   await delay(160);
+   await delay(150);
   }
 
+  // Tangga
   if(ladders[player.pos]){
-   const old=player.pos;
    await delay(400);
+
+   const old=player.pos;
    player.pos=ladders[old];
+
    log("🪜 "+player.name+" naik tangga!");
    playTone(700);
+
+   broadcastState();
   }
 
+  // Ular
   else if(snakes[player.pos]){
-   const old=player.pos;
    await delay(400);
+
+   const old=player.pos;
    player.pos=snakes[old];
+
    log("🐍 "+player.name+" turun ular!");
    playTone(180);
+
+   broadcastState();
   }
+
  }else{
-  log("Angka dadu terlalu besar. Tetap di tempat.");
+  log("Angka terlalu besar. Tetap di posisi "+player.pos+".");
  }
 
- if(player.pos>=100){
-  player.pos=100;
-  started=false;
+ // Pemenang
+ if(player.pos===100){
+  gameOver=true;
+  winner=player.name;
   busy=false;
+  started=false;
+
+  $("message").textContent=
+   "🏆 "+winner+" MENANG!";
+
+  log("🏆 "+winner+" memenangkan permainan!");
+
   broadcastState();
-  $("message").textContent="🏆 "+player.name+" MENANG!";
-  log("🏆 "+player.name+" memenangkan permainan!");
   return;
  }
 
+ // Giliran berikutnya
  currentTurn=(currentTurn+1)%players.length;
+
  busy=false;
  broadcastState();
 }
 
-// ====================================
-// SOUND & MUSIC
-// ====================================
+// ==========================================
+// 10. SOUND
+// ==========================================
 
 function getAudio(){
  if(!audio){
-  audio=new (window.AudioContext||window.webkitAudioContext)();
+  audio=new (window.AudioContext||
+   window.webkitAudioContext)();
  }
- if(audio.state==="suspended")audio.resume();
+
+ if(audio.state==="suspended"){
+  audio.resume();
+ }
+
  return audio;
 }
 
 function playTone(freq){
  if(!soundOn)return;
+
  const a=getAudio();
  const osc=a.createOscillator();
  const gain=a.createGain();
 
  osc.frequency.value=freq;
+
  gain.gain.setValueAtTime(.08,a.currentTime);
- gain.gain.exponentialRampToValueAtTime(.001,a.currentTime+.2);
+ gain.gain.exponentialRampToValueAtTime(
+  .001,a.currentTime+.2
+ );
 
  osc.connect(gain);
  gain.connect(a.destination);
+
  osc.start();
  osc.stop(a.currentTime+.2);
 }
 
 function toggleSound(){
  soundOn=!soundOn;
- $("soundBtn").textContent=soundOn?"🔊 Suara ON":"🔇 Suara OFF";
+
+ $("soundBtn").textContent=
+  soundOn?"🔊 Suara ON":"🔇 Suara OFF";
 }
+
+// ==========================================
+// 11. BACKGROUND MUSIC
+// ==========================================
 
 function toggleMusic(){
  musicOn=!musicOn;
- $("musicBtn").textContent=musicOn?"🎵 Musik ON":"🎵 Musik OFF";
+
+ $("musicBtn").textContent=
+  musicOn?"🎵 Musik ON":"🎵 Musik OFF";
 
  if(musicOn){
   getAudio();
   startMusic();
- }else stopMusic();
+ }else{
+  stopMusic();
+ }
 }
 
 function startMusic(){
  stopMusic();
+
  if(!musicOn)return;
 
  let note=0;
- const notes=[261.6,329.6,392,329.6,293.7,349.2,440,349.2];
+
+ const notes=[
+  261.6,329.6,392,329.6,
+  293.7,349.2,440,349.2
+ ];
 
  musicTimer=setInterval(()=>{
-  if(!musicOn)return;
-  if(!audio)return;
+  if(!musicOn || !audio)return;
 
   const osc=audio.createOscillator();
   const gain=audio.createGain();
+
   osc.type="sine";
   osc.frequency.value=notes[note%notes.length];
+
   gain.gain.value=.018;
-  gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.35);
+
+  gain.gain.exponentialRampToValueAtTime(
+   .001,audio.currentTime+.35
+  );
+
   osc.connect(gain);
   gain.connect(audio.destination);
+
   osc.start();
   osc.stop(audio.currentTime+.35);
+
   note++;
  },420);
 }
 
 function stopMusic(){
- if(musicTimer)clearInterval(musicTimer);
+ if(musicTimer){
+  clearInterval(musicTimer);
+ }
+
  musicTimer=null;
 }
 
+// ==========================================
+// 12. COPY ROOM
+// ==========================================
+
 function copyRoom(){
+ if(!roomId)return;
+
  if(navigator.clipboard){
-  navigator.clipboard.writeText(roomId);
-  alert("Room ID disalin!");
+  navigator.clipboard.writeText(roomId)
+   .then(()=>alert("Room ID berhasil disalin!"))
+   .catch(()=>alert("Room ID: "+roomId));
  }else{
   alert("Room ID: "+roomId);
  }
 }
 
-// ====================================
-// INITIALIZATION
-// ====================================
+// ==========================================
+// 13. INITIALIZE
+// ==========================================
 
 buildBoard();
+
 </script>
 </body>
-     </html>
-     
+</html>
